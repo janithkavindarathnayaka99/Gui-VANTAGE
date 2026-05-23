@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+// register view will be lazy-loaded
 import CartView from '../views/CartView.vue'
 import ProductView from '../views/ProductView.vue'
 
@@ -16,6 +17,12 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    }
+    ,
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
     }
     ,
     {

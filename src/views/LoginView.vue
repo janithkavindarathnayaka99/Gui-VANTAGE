@@ -77,9 +77,11 @@ const handleLogin = (e: Event) => {
                 <span class="bg-[#121212] px-4 text-on-surface-variant">New to Vantage?</span>
               </div>
             </div>
-            <button class="w-full bg-transparent border border-white/20 text-white font-label-caps text-label-caps py-5 tracking-widest hover:border-white transition-all">
-              CREATE ACCOUNT
-            </button>
+            <router-link to="/register" class="w-full block">
+              <button class="w-full bg-transparent border border-white/20 text-white font-label-caps text-label-caps py-5 tracking-widest hover:border-white transition-all">
+                CREATE ACCOUNT
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
