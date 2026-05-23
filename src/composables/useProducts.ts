@@ -4,6 +4,7 @@ import type { ProductResponse, Product } from '../types'
 const products = ref<Product[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
+const total = ref(0)
 
 export function useProducts() {
   const fetchProducts = async (limit = 12, skip = 0, append = false) => {
@@ -38,6 +39,7 @@ export function useProducts() {
         thumbnail: (p as any).thumbnail || ((p as any).images && (p as any).images[0]) || '',
       }))
       products.value = append ? [...products.value, ...mapped] : mapped
+      total.value = data.total ?? 0
       return data.total
     } catch (err: any) {
       error.value = err?.message || String(err)
@@ -47,5 +49,5 @@ export function useProducts() {
     }
   }
 
-  return { products, loading, error, fetchProducts }
+  return { products, loading, error, total, fetchProducts }
 }

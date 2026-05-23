@@ -1,43 +1,52 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import ProductCard from './ProductCard.vue'
 import { useProducts } from '../composables/useProducts'
 import { useAppState } from '../composables/useAppState'
 
-const { products, loading, error, fetchProducts } = useProducts()
+const { products, loading, error, total, fetchProducts } = useProducts()
 const { addToCart, loadCart } = useAppState()
-const skip = ref(0)
-const hasMore = ref(true)
-const limit = 8
 
-const loadProducts = async (append = false) => {
-  const total = await fetchProducts(limit, skip.value, append)
-  hasMore.value = products.value.length < total
-}
+const skip = ref(0)
+const LIMIT = 8
+const loadingMore = ref(false)
+const hasMore = computed(() => products.value.length < total.value)
 
 const loadMore = async () => {
   if (!hasMore.value) return
-  skip.value += limit
-  await loadProducts(true)
+  skip.value += LIMIT
+  loadingMore.value = true
+  await fetchProducts(LIMIT, skip.value, true)
+  loadingMore.value = false
 }
 
 onMounted(async () => {
   loadCart()
   skip.value = 0
-  await loadProducts(false)
+  await fetchProducts(LIMIT, 0, false)
 })
 </script>
 
 <template>
   <section class="bg-surface-container-low py-32 px-16">
     <div class="max-w-[1440px] mx-auto">
-      <div class="flex items-center gap-4 mb-16">
+      <div class="flex items-center gap-4 mb-6">
         <h2 class="font-headline-md text-headline-md text-white">NEW ARRIVALS</h2>
         <div class="h-px flex-grow bg-white/10"></div>
+        <div class="text-white/30 text-sm">({{ products.length }} items)</div>
       </div>
 
-      <div v-if="loading" class="text-white">Loading...</div>
-      <div v-else-if="error" class="text-red-400">{{ error }}</div>
+      <!-- Loading skeleton when first load -->
+      <div v-if="loading && products.length === 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-for="n in 8" :key="n" class="animate-pulse">
+          <div class="aspect-[3/4] bg-white/5 mb-4 rounded-sm"></div>
+          <div class="h-4 bg-white/5 rounded mb-2 w-3/4"></div>
+          <div class="h-4 bg-white/5 rounded w-1/2"></div>
+        </div>
+      </div>
+
+      <div v-else-if="error" class="text-red-400 text-center py-12">Failed to load products: {{ error }}</div>
+
       <div v-else>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
           <ProductCard
@@ -49,14 +58,21 @@ onMounted(async () => {
           />
         </div>
 
-        <div v-if="hasMore" class="mt-12 flex justify-center">
+        <div v-if="hasMore" class="mt-16 flex justify-center">
           <button
             @click="loadMore"
-            class="border border-white/20 text-white px-12 py-4 font-label-caps hover:border-[#BDFF00] hover:text-[#BDFF00] transition-colors"
+            class="border border-white/20 text-white px-16 py-4 font-label-caps tracking-widest hover:border-[#BDFF00] hover:text-[#BDFF00] transition-all duration-300 mt-16 mx-auto block"
           >
-            <div v-if="loading" class="mx-auto h-5 w-5 rounded-full border-2 border-white/20 border-t-white animate-spin"></div>
+            <span v-if="loadingMore" class="flex items-center gap-3">
+              <span class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+              LOADING...
+            </span>
             <span v-else>LOAD MORE</span>
           </button>
+        </div>
+
+        <div v-if="!hasMore && products.length > 0" class="text-center mt-16 text-white/20 font-label-caps tracking-widest text-sm">
+          — END OF CATALOGUE —
         </div>
       </div>
     </div>
