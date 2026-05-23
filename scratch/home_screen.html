@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#374e00",
+                        "on-tertiary-container": "#576676",
+                        "secondary-container": "#3131c0",
+                        "on-secondary-fixed": "#07006c",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#1000a9",
+                        "primary-container": "#b7f700",
+                        "inverse-on-surface": "#313030",
+                        "tertiary-fixed": "#d4e4f7",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#050505",
+                        "on-tertiary-fixed-variant": "#394857",
+                        "on-tertiary": "#233240",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "on-primary-container": "#506e00",
+                        "primary": "#ffffff",
+                        "on-surface-variant": "#c2caad",
+                        "surface-variant": "#353534",
+                        "on-error": "#690005",
+                        "surface-tint": "#a0d800",
+                        "inverse-primary": "#4b6700",
+                        "surface-container-highest": "#353534",
+                        "outline-variant": "#434933",
+                        "on-secondary-container": "#b0b2ff",
+                        "primary-fixed-dim": "#a0d800",
+                        "error-container": "#93000a",
+                        "surface": "#131313",
+                        "primary-fixed": "#b7f700",
+                        "on-primary": "#253600",
+                        "tertiary-container": "#d4e4f7",
+                        "tertiary-fixed-dim": "#b8c8da",
+                        "tertiary": "#ffffff",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary": "#c0c1ff",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-background": "#e5e2e1",
+                        "on-primary-fixed": "#141f00",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-surface": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-fixed": "#0d1d2a",
+                        "outline": "#8c9479",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-dim": "#131313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "title-sm": ["Manrope"],
+                        "display-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-md": ["1rem", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-caps": ["0.75rem", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-md": ["2.25rem", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "title-sm": ["1.25rem", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "display-lg": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-2xl border-b border-white/10">
+<div class="flex justify-between items-center px-16 py-6 max-w-[1440px] mx-auto">
+<div class="text-2xl font-bold tracking-widest text-white font-headline-md">VANTAGE</div>
+<div class="hidden md:flex items-center gap-10 font-manrope font-medium tracking-tight">
+<a class="text-white border-b-2 border-[#BDFF00] pb-1 hover:text-white transition-colors duration-300" href="#">Collections</a>
+<a class="text-white/40 hover:text-white transition-colors duration-300" href="#">New Arrivals</a>
+<a class="text-white/40 hover:text-white transition-colors duration-300" href="#">Archives</a>
+<a class="text-white/40 hover:text-white transition-colors duration-300" href="#">Maison</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80 relative">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-primary-container text-on-primary-container text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">0</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative h-[921px] flex items-center px-16 max-w-[1440px] mx-auto overflow-hidden">
+<div class="relative z-10 w-full grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 md:col-span-6">
+<span class="font-label-caps text-label-caps text-primary-fixed mb-6 block">ETHEREAL PRECISION — FW24</span>
+<h1 class="font-display-lg text-display-lg text-white mb-8 leading-[0.95]">ARCHITECTURAL <br/> SILHOUETTES.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-10">Explore the intersection of structural engineering and high-fashion tailoring. Minimalist forms crafted for the modern avant-garde.</p>
+<div class="flex gap-4">
+<button class="bg-[#BDFF00] text-[#050505] px-10 py-4 font-label-caps text-label-caps transition-transform hover:scale-105 active:opacity-80">
+                            SHOP COLLECTION
+                        </button>
+<button class="border border-white/20 text-white px-10 py-4 font-label-caps text-label-caps hover:bg-white/5 transition-colors">
+                            THE ARCHIVE
+                        </button>
+</div>
+</div>
+<div class="col-span-12 md:col-span-6 h-full flex justify-end">
+<div class="relative w-full h-[716px] glass-panel p-2">
+<img alt="High-fashion model" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="A cinematic studio portrait of a high-fashion model wearing an avant-garde, structural black wool coat with exaggerated architectural shoulders. The setting is a minimalist tech-noir environment with dramatic high-contrast lighting, casting deep shadows against a dark charcoal background. The visual style is premium and exclusive, using a monochromatic palette with subtle glows of lime green light in the distance. The mood is sophisticated, mysterious, and effortlessly luxurious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHMAno3lvPnYPDLgixkO34oLfIfzRLmmMEE4YPgtYUSTmxcBhCooHxWCtK1Ru-FVwFbBLNI90Gy93-WPBjVjQJ0WJaYwmMgOGn0ClBNAhKx5oaZlI3B2Rylfen1m_-lp0M0a7UxaRKGA6ddCaVP_myX7K4To2ETpbVcsqhqdI9HXGXA_527ZAE9nhvlFWkXqkyAn7EleKHKuhVmd8cedsd1Tbz6uDGhpsoSFxL3FeqfPV_Ew7H2wf3jtwCTf3wkPikWsVNPijX6Lga"/>
+</div>
+</div>
+</div>
+<!-- Background Decorative Element -->
+<div class="absolute -right-20 top-0 text-[30rem] font-bold text-white/[0.02] pointer-events-none select-none font-display-lg">V</div>
+</section>
+<!-- Featured Collections Bento Grid -->
+<section class="px-16 py-32 max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-16">
+<div>
+<span class="font-label-caps text-label-caps text-primary-fixed block mb-2">CURATED SERIES</span>
+<h2 class="font-headline-md text-headline-md text-white">COLLECTIONS</h2>
+</div>
+<a class="text-white/40 font-label-caps text-label-caps hover:text-white transition-colors border-b border-white/10 pb-1" href="#">VIEW ALL</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-6 h-[800px]">
+<div class="md:col-span-8 md:row-span-2 group relative overflow-hidden glass-panel">
+<img alt="Outerwear collection" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:scale-105" data-alt="An atmospheric shot of premium tailored outerwear displayed in a futuristic glass boutique with soft atmospheric fog. The lighting is low-key, featuring a palette of deep blacks and cool grays, highlighted by precision-placed lime green neon strips along the floor. The products are crafted from high-quality tech-fabrics, looking sleek and expensive. The overall aesthetic is tech-noir minimalism with a strong focus on craftsmanship and material texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC43wUmt3eOCnLyJtHjHDRpK7fX5TLzax9IqGQ1EhCNj2wnGHl--dM2mwE3ZGxg4Sl5Vy0DnbqDykt7FQPo05hPP1nbygp13cUyeDVueZ9KJzDbl5K_Vp6jDtPzJp2vUYuWZLVeRe_rClkkNe_HPK9_iCO4RuwHx0DxRT6auVC9BdIFkMQTEHFs9UA9ZCmFoPny6DqklI0T9acDrtDgPz_IH86ir3vyF-qxFIkyOsk4AfwgHOJAm6nfw0aFJT90oUsTg0pbCYx9zC5J"/>
+<div class="absolute bottom-10 left-10">
+<h3 class="text-4xl font-headline-md text-white mb-2">STRUCTURAL OUTERWEAR</h3>
+<p class="text-white/60 mb-6 font-body-md">Precision-cut technical layers.</p>
+<button class="bg-white text-black px-6 py-2 font-label-caps text-label-caps hover:bg-[#BDFF00] transition-colors">EXPLORE</button>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 group relative overflow-hidden glass-panel">
+<img alt="Accessories" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" data-alt="A high-end close-up of luxury leather accessories, including a matte black modular bag and minimal chrome hardware, resting on a reflective dark surface. The scene is illuminated by sharp, cool white light from above, creating a sophisticated play of light and shadow. The background is a pitch-black void, emphasizing the premium quality and tech-minimalist design of the leather goods. The style is ultra-modern and exclusive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz77DvdBiexnoiyzanMMiitS6K9WNuwMbA_31509X4jXFia2mJ-AbstYoxG9SJrsgEtHe01dREhnAUtimCYOfZGclM9EWKCsr9tRpoGp6z6WWaruSnRMcWrQxP6-A8B92u1LdpL2UTO-711kYlGzISf5Us5ACm8FS1k8jHFzPKEcCaRmeyG5IFgy1lG45r2nH7VJIbxaE8wrsWYbeoTvDok5C8bgS7vc4pfEjlQSij49efc4KVBWiAGV2Hdms6Gw2E989cnJAEOCUK"/>
+<div class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 to-transparent">
+<h3 class="text-xl font-headline-md text-white">ACCESSORIES 01</h3>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 group relative overflow-hidden glass-panel">
+<img alt="Monochrome Essentials" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" data-alt="A stylized image of minimalist monochrome fashion essentials arranged asymmetrically in a high-tech studio. The composition features clean lines and a monochromatic color scheme of black, white, and dark charcoal. The lighting is soft and diffused, creating a serene, luxurious mood that reflects the brand's 'quiet confidence' aesthetic. Small accents of the brand's signature lime green appear in the subtle UI graphics overlaid on the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7TwQkmQBdufg1kjm5jRahGgRD727T6dY_4fqpX_VWVrgjeHIyySSWvABetV8gW2pJcZL0Fe7e3zzzeRmv9U37oQRDQUX6W_KybnUa2xE4tPaw8DIc78Qg4Pod7mefwTDS2VlLv-nXAJeu4a9GdSd41Bjv1IEkcoE6EfACITB6lhrO_UARiOMu04W9XgkBL1ksShVFvovEkFJ4bX-FIUnriixBGM7MMEWlwicExBnBLa4CvQDxnVMdds_di_3RMgt3QFEDjv_enc5l"/>
+<div class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 to-transparent">
+<h3 class="text-xl font-headline-md text-white">ESSENTIALS</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- New Arrivals Product Grid -->
+<section class="bg-surface-container-low py-32 px-16">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-headline-md text-headline-md text-white">NEW ARRIVALS</h2>
+<div class="h-px flex-grow bg-white/10"></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden glass-panel mb-6">
+<img alt="Technical Parka" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="A high-resolution product shot of a futuristic black technical parka with reflective details and multiple utility pockets. The garment is presented on a minimalist floating mannequin against a deep charcoal gray backdrop. Sharp, surgical lighting highlights the intricate stitching and premium fabric texture. The aesthetic is clean, professional, and high-fashion, embodying a tech-noir luxury vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt_yBVLXns_FRfJy4V90gKREFyQqoAKF6O_5Ga3kOlYkpIhLRVR0B-KKt40EmQe5b55r2eIjUbd9vYCVDp7SU4VpTYoBQUP3HCgyvTFNJliuxCMoZtFqiYRhcNloq2vEwRoPUntdyUOemXCnyJHJVFO6ubUaZhktwXnTYTFxpIw_g-0cjhopasoeR6vF0jGxj-iqQfWaIBy81goozIJ6bmdOHaFjTdXZSC8LMSVSt9lYVl4SVWKqP79zaTdIKu1cF8QWylGO9RKx9I"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-container text-on-primary-container font-label-caps text-[10px] px-2 py-1">LIMITED</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-[#BDFF00] text-black px-6 py-3 font-label-caps text-label-caps flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_bag">shopping_bag</span>
+                                    ADD TO BAG
+                                </button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-sm text-title-sm text-white mb-1">KINETIC SHELL 0.4</h4>
+<p class="text-white/40 font-body-md text-sm uppercase">MATTE BLACK</p>
+</div>
+<span class="text-white font-title-sm">€840</span>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden glass-panel mb-6">
+<img alt="Minimalist Trouser" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="A detailed image focusing on the clean tailoring and premium material of a pair of minimalist charcoal gray trousers. The trousers are displayed in a bright, modern gallery setting with high-key lighting. The style is sophisticated and minimalist, focusing on the silhouette and fabric quality. The overall mood is serene and high-end, using a palette of muted tones and sharp edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy9BDneGN3djMWo810_09wBlt3RjyqyZMKuIR-htuTOEl7cycJVzKipzM2vu98DXg8j7mpr4kREI4KE83pEQTNNYJfarWTY8DmWxA4mjvUMdjUtdhvrpxBeUyqgaHMrOC_l6cTv11qHLn_K3dGGqQdU084SNjbVQx0IKXqnd9qbH0WGyIidDpr_YuBUWvXAKEOHkpVtfb1LtGi3UQXA3BLRypDl4QomhzXa0HeildVgc57y4dtGZmthiRTbXgNnsE1yUOdyb7FOHJI"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-[#BDFF00] text-black px-6 py-3 font-label-caps text-label-caps flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_bag">shopping_bag</span>
+                                    ADD TO BAG
+                                </button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-sm text-title-sm text-white mb-1">DRAPE TROUSER</h4>
+<p class="text-white/40 font-body-md text-sm uppercase">ANTHRACITE</p>
+</div>
+<span class="text-white font-title-sm">€420</span>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden glass-panel mb-6">
+<img alt="Vantage Tee" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="A professional product shot of a premium heavyweight black t-shirt featuring a subtle, tonal VANTAGE logo embossed on the chest. The shirt is hung on a custom-designed architectural metal hanger in a dark, minimalist studio space. Soft ambient lighting creates smooth gradients on the high-quality fabric. The design is understated and exclusive, targeting a discerning audience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYmVhnCp6vG7lOA1jMuYH-Y-fUZZxRzOHeL7FxWWoylZ8bTiuHFTQS7AHkSE7GoxUBLkypL2APIK-uadtiHkwTm_CjkDXzLMQYtjdQLR1tE5mVeK-M3X9JPJ30cYz9JodHgFh__01BWfXNTtrvvPx9lCZh7lcRcs9ftj28WNbxM6byDBdqK_te-7M_pZbYkQNEciGsdkQrHmS6_4DjU1RwhZx502lZ51bvAtH8ZhkKurSDNU_wb4URYRKi3pYgNsYSA7-7mMWtJ3Q9"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-[#BDFF00] text-black px-6 py-3 font-label-caps text-label-caps flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_bag">shopping_bag</span>
+                                    ADD TO BAG
+                                </button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-sm text-title-sm text-white mb-1">ESSENTIAL TEE</h4>
+<p class="text-white/40 font-body-md text-sm uppercase">OBSIDIAN</p>
+</div>
+<span class="text-white font-title-sm">€180</span>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden glass-panel mb-6">
+<img alt="Technical Boot" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105" data-alt="A striking low-angle shot of a pair of high-fashion technical boots with chunky soles and sleek matte black finish. The boots are placed on a wet, reflective pavement in a dark urban environment at night. Faint lime green neon signs are reflected in the puddles, creating a classic tech-noir atmosphere. The lighting is dramatic and cinematic, highlighting the rugged yet sophisticated design of the footwear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsgIbCFDMwM2FUWXEk6Sp2zIulVhIhlHsUNXewN58bOhY4SYMLPVFsgIgcawAZ35cZYJCqrPP1qUDW9KnrVS-zFSZoj9X4z6A1RY2yTBq-5o3umpaohjdBiDJU1E9GB1khAQIfZ5exRxDG-Oo_ZCTNgIrk_rxBZFGFRPfPFA_-6eeTT8cIsT4Y8fg7sNWhKi9o-AkijSpc4nE6nHda2DybrRnCTjA4apEZ_DQ18iGk3pkW7lawVsucmS-Kc0JFxZ8pOlWT3O3VSivj"/>
+<div class="absolute top-4 left-4">
+<span class="bg-[#BDFF00] text-black font-label-caps text-[10px] px-2 py-1">NEW</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-[#BDFF00] text-black px-6 py-3 font-label-caps text-label-caps flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_bag">shopping_bag</span>
+                                    ADD TO BAG
+                                </button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-title-sm text-title-sm text-white mb-1">ORBIT BOOT</h4>
+<p class="text-white/40 font-body-md text-sm uppercase">TECH BLACK</p>
+</div>
+<span class="text-white font-title-sm">€1,150</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Maison Philosophy -->
+<section class="py-32 px-16 max-w-[1440px] mx-auto text-center">
+<div class="max-w-2xl mx-auto">
+<span class="font-label-caps text-label-caps text-primary-fixed mb-8 block">THE MAISON</span>
+<p class="font-headline-md text-[2rem] text-white leading-relaxed mb-12">"VANTAGE IS A STUDY OF REDUCTION. WE CREATE ONLY WHAT IS ESSENTIAL, REFINING EVERY LINE UNTIL ONLY PRECISION REMAINS."</p>
+<button class="border-b-2 border-[#BDFF00] text-[#BDFF00] font-label-caps text-label-caps pb-2 hover:text-white hover:border-white transition-all">READ OUR MANIFESTO</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#050505] border-t border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-16 py-24 max-w-[1440px] mx-auto">
+<div>
+<div class="text-xl font-bold text-white mb-4 font-headline-md">VANTAGE</div>
+<p class="text-white/40 font-body-md max-w-sm mb-8 text-[14px]">The vanguard of luxury technical apparel. Engineered in Paris. Crafted for eternity.</p>
+<div class="flex gap-6">
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="#"><span class="material-symbols-outlined" data-icon="share">share</span></a>
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="#"><span class="material-symbols-outlined" data-icon="public">public</span></a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="flex flex-col gap-4 font-manrope text-[12px] uppercase tracking-widest">
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Privacy Policy</a>
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4 font-manrope text-[12px] uppercase tracking-widest">
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Shipping &amp; Returns</a>
+<a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Contact</a>
+</div>
+</div>
+</div>
+<div class="px-16 pb-12 max-w-[1440px] mx-auto">
+<div class="pt-12 border-t border-white/5 text-white/20 font-manrope text-[12px] uppercase tracking-[0.2em] text-center">
+                © 2024 VANTAGE COLLECTIVE. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+</body></html>
