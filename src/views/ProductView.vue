@@ -14,6 +14,7 @@ const error = ref<string | null>(null)
 const selectedSize = ref('M')
 const quantity = ref(1)
 const selectedImage = ref('')
+const wishlisted = ref(false)
 const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
 const ratingStars = computed(() => {
@@ -68,9 +69,8 @@ onMounted(async () => {
   <div class="bg-[#050505] min-h-screen text-white">
     <TopNavBar />
     <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-16 max-w-[1440px] mx-auto">
-      <button @click="router.push('/')" class="mb-8 inline-flex items-center gap-2 text-white/60 hover:text-white">
-        <span class="text-xl">←</span>
-        Back to Home
+      <button @click="router.back()" class="flex items-center gap-2 text-white/40 hover:text-white mb-8 font-label-caps tracking-widest text-sm transition-colors">
+        <- BACK
       </button>
 
       <div v-if="loading" class="space-y-6">
@@ -156,13 +156,18 @@ onMounted(async () => {
           <div class="space-y-4">
             <button
               type="button"
-              @click="addToCart(product)"
+              @click="product && addToCart(product)"
               class="w-full bg-[#BDFF00] text-black font-bold py-4 rounded-xl"
             >
               ADD TO BAG
             </button>
-            <button type="button" class="w-full border border-white/20 text-white py-4 rounded-xl">
-              ADD TO WISHLIST
+            <button
+              type="button"
+              @click="wishlisted = !wishlisted"
+              class="w-full border border-white/20 text-white py-4 rounded-xl"
+              :class="{ 'border-[#BDFF00] text-[#BDFF00]': wishlisted }"
+            >
+              {{ wishlisted ? '✓ WISHLISTED' : 'ADD TO WISHLIST' }}
             </button>
           </div>
 

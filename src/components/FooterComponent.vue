@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Footer Component
 </script>
 
 <template>
@@ -9,18 +8,18 @@
         <div class="text-xl font-bold text-white mb-4 font-headline-md">VANTAGE</div>
         <p class="text-white/40 font-body-md max-w-sm mb-8 text-[14px]">The vanguard of luxury technical apparel. Engineered in Paris. Crafted for eternity.</p>
         <div class="flex gap-6">
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="#"><span class="material-symbols-outlined" data-icon="share">share</span></a>
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="#"><span class="material-symbols-outlined" data-icon="public">public</span></a>
+          <a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="https://www.instagram.com/" target="_blank" rel="noopener"><span class="material-symbols-outlined" data-icon="share">share</span></a>
+          <a class="text-white/30 hover:text-[#BDFF00] transition-colors" href="https://www.vogue.com/fashion" target="_blank" rel="noopener"><span class="material-symbols-outlined" data-icon="public">public</span></a>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-8">
         <div class="flex flex-col gap-4 font-manrope text-[12px] uppercase tracking-widest">
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Privacy Policy</a>
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Terms of Service</a>
+          <router-link to="/privacy" class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80">Privacy Policy</router-link>
+          <router-link to="/terms" class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80">Terms of Service</router-link>
         </div>
         <div class="flex flex-col gap-4 font-manrope text-[12px] uppercase tracking-widest">
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Shipping &amp; Returns</a>
-          <a class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80" href="#">Contact</a>
+          <router-link to="/shipping" class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80">Shipping &amp; Returns</router-link>
+          <router-link to="/contact" class="text-white/30 hover:text-[#BDFF00] transition-colors opacity-100 hover:opacity-80">Contact</router-link>
         </div>
       </div>
     </div>

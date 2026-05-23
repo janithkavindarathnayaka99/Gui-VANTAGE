@@ -14,12 +14,9 @@ onMounted(() => {
 
 const subtotal = computed(() => cart.value.reduce((sum, item) => sum + item.product.price * item.quantity, 0))
 
-const decreaseOrRemove = (item: { product: { id: number }, quantity: number }) => {
-  if (item.quantity <= 1) {
-    removeFromCart(item.product.id)
-  } else {
-    updateQuantity(item.product.id, item.quantity - 1)
-  }
+const handleCheckout = () => {
+  alert('Checkout coming soon! Thank you for shopping at VANTAGE.')
+  void router.resolve('/checkout')
 }
 </script>
 
@@ -45,7 +42,7 @@ const decreaseOrRemove = (item: { product: { id: number }, quantity: number }) =
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
                   <button
-                    @click="decreaseOrRemove(item)"
+                    @click="item.quantity === 1 ? removeFromCart(item.product.id) : updateQuantity(item.product.id, item.quantity - 1)"
                     class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-white/90"
                   >
                     -
@@ -87,7 +84,7 @@ const decreaseOrRemove = (item: { product: { id: number }, quantity: number }) =
             <span class="text-sm uppercase tracking-[0.2em] text-white/60">Total</span>
             <span class="text-3xl font-bold">€{{ subtotal.toFixed(2) }}</span>
           </div>
-          <button class="w-full bg-[#BDFF00] text-black font-bold py-5 rounded-xl mb-4">PROCEED TO CHECKOUT</button>
+          <button @click="handleCheckout" class="w-full bg-[#BDFF00] text-black font-bold py-5 rounded-xl mb-4">PROCEED TO CHECKOUT</button>
           <router-link
             to="/"
             class="w-full block text-center border border-white/20 text-white py-4 rounded-xl hover:border-[#BDFF00] hover:text-[#BDFF00] transition-colors"

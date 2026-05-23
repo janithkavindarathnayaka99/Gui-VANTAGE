@@ -1,5 +1,7 @@
 <script setup lang="ts">
-// HeroSection Component
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 </script>
 
 <template>
@@ -10,10 +12,10 @@
         <h1 class="font-display-lg text-display-lg text-white mb-8 leading-[0.95]">ARCHITECTURAL <br/> SILHOUETTES.</h1>
         <p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-10">Explore the intersection of structural engineering and high-fashion tailoring. Minimalist forms crafted for the modern avant-garde.</p>
         <div class="flex gap-4">
-          <button class="bg-[#BDFF00] text-[#050505] px-10 py-4 font-label-caps text-label-caps transition-transform hover:scale-105 active:opacity-80">
+          <button @click="router.push('/#new-arrivals')" class="bg-[#BDFF00] text-[#050505] px-10 py-4 font-label-caps text-label-caps transition-transform hover:scale-105 active:opacity-80">
             SHOP COLLECTION
           </button>
-          <button class="border border-white/20 text-white px-10 py-4 font-label-caps text-label-caps hover:bg-white/5 transition-colors">
+          <button @click="router.push('/#collections')" class="border border-white/20 text-white px-10 py-4 font-label-caps text-label-caps hover:bg-white/5 transition-colors">
             THE ARCHIVE
           </button>
         </div>

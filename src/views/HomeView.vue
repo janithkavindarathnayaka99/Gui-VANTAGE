@@ -12,9 +12,9 @@ import FooterComponent from '../components/FooterComponent.vue'
     <TopNavBar />
     <main class="pt-24">
       <HeroSection />
-      <FeaturedCollections />
-      <NewArrivals />
-      <MaisonPhilosophy />
+      <FeaturedCollections id="collections" />
+      <NewArrivals id="new-arrivals" />
+      <MaisonPhilosophy id="maison" />
     </main>
     <FooterComponent />
   </div>

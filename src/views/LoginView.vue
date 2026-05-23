@@ -17,10 +17,10 @@ const handleLogin = (e: Event) => {
         <router-link to="/" class="text-2xl font-bold tracking-widest text-white font-headline-md">VANTAGE</router-link>
         <div class="flex gap-8 items-center">
           <!-- Search suppressed for focus -->
-          <button class="text-white/40 hover:text-white transition-all scale-95 active:opacity-80">
+          <button @click="router.push('/')" class="text-white/40 hover:text-white transition-all scale-95 active:opacity-80">
             <span class="material-symbols-outlined" data-icon="search">search</span>
           </button>
-          <button class="text-white/40 hover:text-white transition-all scale-95 active:opacity-80">
+          <button @click="router.push('/cart')" class="text-white/40 hover:text-white transition-all scale-95 active:opacity-80">
             <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
           </button>
         </div>
@@ -61,7 +61,7 @@ const handleLogin = (e: Event) => {
               <div class="space-y-2">
                 <div class="flex justify-between items-center">
                   <label class="font-label-caps text-label-caps text-on-surface-variant">PASSWORD</label>
-                  <a class="text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-[#BDFF00] transition-colors" href="#">Forgot Password?</a>
+                  <router-link to="/forgot-password" class="text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-[#BDFF00] transition-colors">Forgot Password?</router-link>
                 </div>
                 <input class="w-full bg-[#0A0A0A] border border-white/10 px-4 py-4 text-white focus:outline-none focus:border-[#BDFF00]/40 transition-colors font-body-md" placeholder="••••••••" type="password" required />
               </div>
@@ -97,13 +97,13 @@ const handleLogin = (e: Event) => {
         <div class="grid grid-cols-2 gap-8">
           <div class="flex flex-col gap-4">
             <span class="font-label-caps text-label-caps text-white mb-2">Legal</span>
-            <a class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors" href="#">Privacy Policy</a>
-            <a class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors" href="#">Terms of Service</a>
+            <router-link to="/privacy" class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors">Privacy Policy</router-link>
+            <router-link to="/terms" class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors">Terms of Service</router-link>
           </div>
           <div class="flex flex-col gap-4">
             <span class="font-label-caps text-label-caps text-white mb-2">Company</span>
-            <a class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors" href="#">Shipping &amp; Returns</a>
-            <a class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors" href="#">Contact</a>
+            <router-link to="/shipping" class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors">Shipping &amp; Returns</router-link>
+            <router-link to="/contact" class="font-manrope text-[12px] uppercase tracking-widest text-white/30 hover:text-[#BDFF00] transition-colors">Contact</router-link>
           </div>
         </div>
         <div class="md:col-span-2 pt-16 mt-16 border-t border-white/5">

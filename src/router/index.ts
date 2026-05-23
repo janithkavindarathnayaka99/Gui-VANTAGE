@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
-// register view will be lazy-loaded
 import CartView from '../views/CartView.vue'
 import ProductView from '../views/ProductView.vue'
 
@@ -17,14 +16,17 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
-    }
-    ,
+    },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/RegisterView.vue')
-    }
-    ,
+      component: LoginView
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: LoginView
+    },
     {
       path: '/cart',
       name: 'cart',
@@ -35,14 +37,45 @@ const router = createRouter({
       name: 'product',
       component: ProductView,
       props: true
-    }
-    ,
+    },
+    {
+      path: '/privacy',
+      name: 'privacy',
+      component: HomeView
+    },
+    {
+      path: '/terms',
+      name: 'terms',
+      component: HomeView
+    },
+    {
+      path: '/shipping',
+      name: 'shipping',
+      component: HomeView
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: HomeView
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: HomeView
+    },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: () => import('../views/NotFoundView.vue')
+      component: HomeView
     }
-  ]
+  ],
+  scrollBehavior(to) {
+    if (to.hash) {
+      return { el: to.hash, behavior: 'smooth', top: 96 }
+    }
+
+    return { top: 0 }
+  }
 })
 
 export default router
