@@ -26,6 +26,14 @@ export function useAppState() {
     saveCart()
   }
 
+  const updateQuantity = (productId: number, qty: number) => {
+    const idx = cart.value.findIndex(i => i.product.id === productId)
+    if (idx > -1) {
+      cart.value[idx].quantity = Math.max(1, qty)
+      saveCart()
+    }
+  }
+
   const saveCart = () => {
     localStorage.setItem('stitch_cart', JSON.stringify(cart.value))
   }
@@ -56,6 +64,7 @@ export function useAppState() {
     isDarkMode,
     addToCart,
     removeFromCart,
+    updateQuantity,
     loadCart,
     toggleDarkMode,
     updateDOMTheme

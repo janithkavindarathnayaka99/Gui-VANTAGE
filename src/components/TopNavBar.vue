@@ -1,5 +1,11 @@
 <script setup lang="ts">
-// TopNavBar Component
+import { computed } from 'vue'
+import { useAppState } from '../composables/useAppState'
+
+const { cart, loadCart } = useAppState()
+loadCart()
+
+const count = computed(() => cart.value.reduce((s, i) => s + i.quantity, 0))
 </script>
 
 <template>
@@ -19,10 +25,10 @@
         <router-link to="/login" class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80">
           <span class="material-symbols-outlined" data-icon="person">person</span>
         </router-link>
-        <button class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80 relative">
+        <router-link to="/cart" class="text-white hover:text-[#BDFF00] transition-all scale-95 active:opacity-80 relative">
           <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-          <span class="absolute -top-1 -right-1 bg-primary-container text-on-primary-container text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">0</span>
-        </button>
+          <span class="absolute -top-1 -right-1 bg-primary-container text-on-primary-container text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">{{ count }}</span>
+        </router-link>
       </div>
     </div>
   </nav>
