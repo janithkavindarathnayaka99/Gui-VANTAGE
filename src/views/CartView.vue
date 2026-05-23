@@ -36,7 +36,8 @@ const subtotal = computed(() => cart.value.reduce((sum, item) => sum + item.prod
           <span class="text-white/60">Subtotal</span>
           <span class="text-white">€{{ subtotal.toFixed(2) }}</span>
         </div>
-        <button class="w-full py-4 bg-primary-container text-on-primary-container font-bold">Proceed to Checkout</button>
+        <button class="w-full py-4 bg-primary-container text-on-primary-container font-bold mb-4">Proceed to Checkout</button>
+        <router-link to="/" class="w-full block text-center py-4 border border-white/10 text-white hover:border-[#BDFF00] hover:text-[#BDFF00] transition-colors rounded-sm">Continue Shopping</router-link>
       </aside>
     </div>
   </div>
