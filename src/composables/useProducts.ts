@@ -7,11 +7,18 @@ const error = ref<string | null>(null)
 const total = ref(0)
 
 export function useProducts() {
-  const fetchProducts = async (limit = 12, skip = 0, append = false) => {
+  const fetchProducts = async (limit = 12, skip = 0, append = false, query = '', category = '') => {
     loading.value = true
     error.value = null
     try {
-      const res = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
+      const normalizedQuery = typeof query === 'string' ? query.trim() : ''
+      const normalizedCategory = typeof category === 'string' ? category.trim().toLowerCase() : ''
+      let endpoint = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+
+      if (normalizedQuery) {
+        endpoint = `https://dummyjson.com/products/search?q=${encodeURIComponent(normalizedQuery)}&limit=${limit}&skip=${skip}`
+      }
+      const res = await fetch(endpoint)
       const data = (await res.json()) as ProductResponse
       // Map dummyjson fields into our Product shape where possible
       const mapped = data.products.map(p => ({

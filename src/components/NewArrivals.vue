@@ -1,29 +1,57 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import ProductCard from './ProductCard.vue'
 import { useProducts } from '../composables/useProducts'
 import { useAppState } from '../composables/useAppState'
 
+const route = useRoute()
 const { products, loading, error, total, fetchProducts } = useProducts()
 const { addToCart, loadCart } = useAppState()
 
 const skip = ref(0)
-const LIMIT = 8
+const LIMIT = 100
 const loadingMore = ref(false)
-const hasMore = computed(() => products.value.length < total.value)
+const searchQuery = computed(() => {
+  const q = route.query.q
+  return typeof q === 'string' ? q.trim() : ''
+})
+const selectedCategory = computed(() => {
+  const category = route.query.category
+  return typeof category === 'string' ? category.trim().toLowerCase() : ''
+})
 
-const loadMore = async () => {
-  if (!hasMore.value) return
-  skip.value += LIMIT
-  loadingMore.value = true
-  await fetchProducts(LIMIT, skip.value, true)
-  loadingMore.value = false
+const categoryMatches = (product: any, category: string) => {
+  if (!category) return true
+  const text = `${product.title} ${product.description} ${product.category}`.toLowerCase()
+  return text.includes(category)
+}
+
+const filteredProducts = computed(() => {
+  const q = searchQuery.value.toLowerCase()
+  const category = selectedCategory.value
+  return products.value.filter(product => {
+    const text = `${product.title} ${product.description} ${product.category}`.toLowerCase()
+    const matchesCategory = category ? categoryMatches(product, category) : true
+    const matchesQuery = q ? text.includes(q) : true
+    return matchesCategory && matchesQuery
+  })
+})
+
+const hasMore = computed(() => false)
+
+const loadProducts = async () => {
+  skip.value = 0
+  await fetchProducts(LIMIT, 0, false, searchQuery.value, selectedCategory.value)
 }
 
 onMounted(async () => {
   loadCart()
-  skip.value = 0
-  await fetchProducts(LIMIT, 0, false)
+  await loadProducts()
+})
+
+watch([searchQuery, selectedCategory], async () => {
+  await loadProducts()
 })
 </script>
 
@@ -31,9 +59,15 @@ onMounted(async () => {
   <section class="bg-surface-container-low py-32 px-16">
     <div class="max-w-[1440px] mx-auto">
       <div class="flex items-center gap-4 mb-6">
-        <h2 class="font-headline-md text-headline-md text-white">NEW ARRIVALS</h2>
+        <div>
+          <h2 class="font-headline-md text-headline-md text-white">
+            {{ selectedCategory ? `${selectedCategory.toUpperCase()} COLLECTION` : (searchQuery ? `SEARCH RESULTS` : 'NEW ARRIVALS') }}
+          </h2>
+          <p v-if="selectedCategory" class="text-white/40 text-sm uppercase tracking-[0.16em] mt-1">Category: {{ selectedCategory }}</p>
+          <p v-else-if="searchQuery" class="text-white/40 text-sm uppercase tracking-[0.16em] mt-1">Search query: "{{ searchQuery }}"</p>
+        </div>
         <div class="h-px flex-grow bg-white/10"></div>
-        <div class="text-white/30 text-sm">({{ products.length }} items)</div>
+        <div class="text-white/30 text-sm">({{ filteredProducts.length }} items)</div>
       </div>
 
       <!-- Loading skeleton when first load -->
@@ -50,7 +84,7 @@ onMounted(async () => {
       <div v-else>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
           <ProductCard
-            v-for="p in products"
+            v-for="p in filteredProducts"
             :key="p.id"
             :product="p"
             @addToCart="addToCart"
