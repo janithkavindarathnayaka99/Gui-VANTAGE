@@ -72,7 +72,6 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
         </router-link>
         <router-link to="/#new-arrivals" :class="navLinkClass">New Arrivals</router-link>
         <router-link to="/#maison" :class="navLinkClass">Archives</router-link>
-        <router-link to="/#maison" :class="navLinkClass">Maison</router-link>
 
         <div class="relative" @mouseenter="categoryOpen = true" @mouseleave="categoryOpen = false">
           <button
@@ -141,7 +140,6 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
           <router-link to="/#collections" class="border-b border-white/[0.08] py-4 text-sm font-medium uppercase tracking-[0.16em] text-white" @click="closeMenus">Collections</router-link>
           <router-link to="/#new-arrivals" :class="mobileLinkClass" @click="closeMenus">New Arrivals</router-link>
           <router-link to="/#maison" :class="mobileLinkClass" @click="closeMenus">Archives</router-link>
-          <router-link to="/#maison" :class="mobileLinkClass" @click="closeMenus">Maison</router-link>
 
           <div class="border-b border-[#C8FF00]/70 py-4">
             <button type="button" class="flex w-full items-center justify-between text-sm font-medium uppercase tracking-[0.16em] text-white/70" @click="categoryOpen = !categoryOpen">
