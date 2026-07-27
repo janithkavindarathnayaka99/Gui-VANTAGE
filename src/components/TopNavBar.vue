@@ -27,8 +27,8 @@ const closeMenus = () => {
   mobileOpen.value = false
 }
 
-const goToCategory = () => {
-  router.push('/#collections')
+const goToCategory = (category: string) => {
+  router.push({ path: '/', hash: '#collections', query: { category: category.toLowerCase() } })
   closeMenus()
 }
 
@@ -99,7 +99,7 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
                 :key="category"
                 type="button"
                 class="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium uppercase tracking-[0.12em] text-white transition-colors hover:text-[#C8FF00]"
-                @click="goToCategory"
+                @click="goToCategory(category)"
               >
                 {{ category }}
                 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -152,7 +152,7 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
                 :key="category"
                 type="button"
                 class="flex w-full items-center justify-between py-2 pl-4 text-xs font-medium uppercase tracking-[0.14em] text-white/70 transition-colors hover:text-[#C8FF00]"
-                @click="goToCategory"
+                @click="goToCategory(category)"
               >
                 {{ category }}
                 <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
