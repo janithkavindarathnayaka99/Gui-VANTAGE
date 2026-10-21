@@ -2,10 +2,12 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppState } from '../composables/useAppState'
+import { useAuth } from '../composables/useAuth'
 import CategoryMenu from './CategoryMenu.vue'
 
 const router = useRouter()
 const { cart, loadCart } = useAppState()
+const { currentUser, logout, restoreSession } = useAuth()
 loadCart()
 
 const count = computed(() => cart.value.reduce((s, i) => s + i.quantity, 0))
@@ -14,8 +16,22 @@ const searchQuery = ref('')
 const categoryOpen = ref(false)
 const mobileOpen = ref(false)
 const navRef = ref<HTMLElement | null>(null)
+const authError = ref('')
 
-const categories = ['Outerwear', 'Tailoring', 'Knitwear', 'Accessories', 'Footwear']
+const categories = [
+  'mens-shirts',
+  'mens-shoes',
+  'mens-watches',
+  'mobile-accessories',
+  'sports-accessories',
+  'sunglasses',
+  'tops',
+  'womens-bags',
+  'womens-dresses',
+  'womens-jewellery',
+  'womens-shoes',
+  'womens-watches',
+]
 
 const handleSearch = () => {
   router.push({ name: 'search', query: { q: searchQuery.value } })
@@ -29,7 +45,7 @@ const closeMenus = () => {
 }
 
 const goToCategory = (category: string) => {
-  router.push({ path: '/', hash: '#collections', query: { category: category.toLowerCase() } })
+  router.push({ path: '/', hash: '#new-arrivals', query: { category } })
   closeMenus()
 }
 
@@ -47,6 +63,11 @@ const handleEscape = (event: KeyboardEvent) => {
 }
 
 onMounted(() => {
+  try {
+    restoreSession()
+  } catch (err) {
+    authError.value = err instanceof Error ? err.message : 'Unable to restore sign-in session.'
+  }
   document.addEventListener('click', handleDocumentClick)
   document.addEventListener('keydown', handleEscape)
 })
@@ -86,7 +107,17 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
         <button type="button" @click="searchOpen = !searchOpen" class="text-white/80 opacity-80 transition-opacity hover:opacity-100 active:opacity-70">
           <span class="material-symbols-outlined text-[20px]" data-icon="search">search</span>
         </button>
-        <router-link to="/login" class="text-white/80 opacity-80 transition-opacity hover:opacity-100 active:opacity-70">
+        <button
+          v-if="currentUser"
+          type="button"
+          :aria-label="`Sign out ${currentUser.fullName}`"
+          title="Sign out"
+          @click="logout"
+          class="text-white/80 opacity-80 transition-opacity hover:opacity-100 active:opacity-70"
+        >
+          <span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+        </button>
+        <router-link v-else to="/login" aria-label="Sign in" class="text-white/80 opacity-80 transition-opacity hover:opacity-100 active:opacity-70">
           <span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
         </router-link>
         <router-link to="/cart" class="relative text-white/80 opacity-80 transition-opacity hover:opacity-100 active:opacity-70">
@@ -124,6 +155,9 @@ const mobileLinkClass = 'border-b border-white/[0.08] py-4 text-sm font-medium u
         </div>
       </div>
     </transition>
+    <p v-if="authError" role="alert" class="border-t border-red-400/20 px-6 py-2 text-center text-xs text-red-300">
+      {{ authError }}
+    </p>
   </nav>
 
   <div v-if="searchOpen" class="fixed left-0 top-[73px] z-40 flex w-full items-center gap-4 border-b border-white/10 bg-[#050505]/95 px-6 py-6 backdrop-blur-2xl md:px-16">

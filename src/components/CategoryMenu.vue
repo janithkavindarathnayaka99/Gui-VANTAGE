@@ -10,6 +10,13 @@ const emit = defineEmits<{
   (e: 'toggle'): void
   (e: 'select', category: string): void
 }>()
+
+const formatCategory = (category: string) =>
+  category
+    .replace(/^mens-/, "Men's ")
+    .replace(/^womens-/, "Women's ")
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, letter => letter.toUpperCase())
 </script>
 
 <template>
@@ -41,7 +48,7 @@ const emit = defineEmits<{
           class="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium uppercase tracking-[0.12em] text-white transition-colors hover:text-[#C8FF00]"
           @click="emit('select', category)"
         >
-          {{ category }}
+          {{ formatCategory(category) }}
           <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
         </button>
       </div>

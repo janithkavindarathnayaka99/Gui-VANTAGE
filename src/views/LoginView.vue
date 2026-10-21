@@ -1,11 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '../composables/useAuth'
 
 const router = useRouter()
-const handleLogin = (e: Event) => {
-  e.preventDefault()
-  // Simulate login
-  router.push('/')
+const { login } = useAuth()
+const email = ref('')
+const password = ref('')
+const error = ref('')
+const submitting = ref(false)
+
+const handleLogin = async () => {
+  error.value = ''
+  submitting.value = true
+  try {
+    await login(email.value, password.value)
+    await router.push('/')
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Sign in failed. Please try again.'
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 
@@ -53,20 +68,18 @@ const handleLogin = (e: Event) => {
               <h2 class="font-headline-md text-headline-md text-white">Sign In</h2>
               <p class="text-on-surface-variant font-body-md">Enter your credentials to continue.</p>
             </div>
-            <form class="space-y-6" @submit="handleLogin">
+            <form class="space-y-6" @submit.prevent="handleLogin">
               <div class="space-y-2">
                 <label class="font-label-caps text-label-caps text-on-surface-variant">EMAIL ADDRESS</label>
-                <input class="w-full bg-[#0A0A0A] border border-white/10 px-4 py-4 text-white focus:outline-none focus:border-[#BDFF00]/40 transition-colors font-body-md" placeholder="name@vantage.com" type="email" required />
+                <input v-model="email" class="w-full bg-[#0A0A0A] border border-white/10 px-4 py-4 text-white focus:outline-none focus:border-[#BDFF00]/40 transition-colors font-body-md" placeholder="name@vantage.com" type="email" autocomplete="email" required />
               </div>
               <div class="space-y-2">
-                <div class="flex justify-between items-center">
-                  <label class="font-label-caps text-label-caps text-on-surface-variant">PASSWORD</label>
-                  <router-link to="/forgot-password" class="text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-[#BDFF00] transition-colors">Forgot Password?</router-link>
-                </div>
-                <input class="w-full bg-[#0A0A0A] border border-white/10 px-4 py-4 text-white focus:outline-none focus:border-[#BDFF00]/40 transition-colors font-body-md" placeholder="••••••••" type="password" required />
+                <label class="font-label-caps text-label-caps text-on-surface-variant">PASSWORD</label>
+                <input v-model="password" class="w-full bg-[#0A0A0A] border border-white/10 px-4 py-4 text-white focus:outline-none focus:border-[#BDFF00]/40 transition-colors font-body-md" placeholder="••••••••" type="password" autocomplete="current-password" required />
               </div>
-              <button class="w-full bg-[#BDFF00] text-[#050505] font-label-caps text-label-caps py-5 tracking-widest hover:scale-[1.02] active:scale-95 transition-all" type="submit">
-                SIGN IN
+              <p v-if="error" role="alert" class="text-sm text-red-400">{{ error }}</p>
+              <button :disabled="submitting" class="w-full bg-[#BDFF00] text-[#050505] font-label-caps text-label-caps py-5 tracking-widest hover:scale-[1.02] active:scale-95 transition-all disabled:cursor-wait disabled:opacity-60" type="submit">
+                {{ submitting ? 'SIGNING IN…' : 'SIGN IN' }}
               </button>
             </form>
             <div class="relative py-4">
@@ -78,9 +91,9 @@ const handleLogin = (e: Event) => {
               </div>
             </div>
             <router-link to="/register" class="w-full block">
-              <button class="w-full bg-transparent border border-white/20 text-white font-label-caps text-label-caps py-5 tracking-widest hover:border-white transition-all">
+              <span class="w-full block text-center bg-transparent border border-white/20 text-white font-label-caps text-label-caps py-5 tracking-widest hover:border-white transition-all">
                 CREATE ACCOUNT
-              </button>
+              </span>
             </router-link>
           </div>
         </div>

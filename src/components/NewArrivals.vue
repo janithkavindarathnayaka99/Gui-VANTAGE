@@ -20,18 +20,12 @@ const selectedCategory = computed(() => {
   return typeof category === 'string' ? category.trim().toLowerCase() : ''
 })
 
-const categoryMatches = (product: any, category: string) => {
-  if (!category) return true
-  const text = `${product.title} ${product.description} ${product.category}`.toLowerCase()
-  return text.includes(category)
-}
-
 const filteredProducts = computed(() => {
   const q = searchQuery.value.toLowerCase()
   const category = selectedCategory.value
   return products.value.filter(product => {
     const text = `${product.title} ${product.description} ${product.category}`.toLowerCase()
-    const matchesCategory = category ? categoryMatches(product, category) : true
+    const matchesCategory = category ? product.category.toLowerCase() === category : true
     const matchesQuery = q ? text.includes(q) : true
     return matchesCategory && matchesQuery
   })
@@ -91,7 +85,7 @@ watch([searchQuery, selectedCategory], async () => {
           />
         </div>
 
-        <div v-if="products.length === 0 && !loading" class="text-center mt-16 text-white/20 font-label-caps tracking-widest text-sm">
+        <div v-if="filteredProducts.length === 0 && !loading" class="text-center mt-16 text-white/20 font-label-caps tracking-widest text-sm">
           — NO PRODUCTS FOUND —
         </div>
       </div>

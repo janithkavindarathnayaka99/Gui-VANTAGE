@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Product } from '../types'
 
 defineProps<{
   product: Product
 }>()
 
+const added = ref(false)
+
 const emit = defineEmits<{
   (e: 'viewDetails', id: number): void
   (e: 'addToCart', product: Product): void
 }>()
+
+const addToCart = (product: Product) => {
+  emit('addToCart', product)
+  added.value = true
+}
 </script>
 
 <template>
@@ -30,8 +38,11 @@ const emit = defineEmits<{
       <!-- Hover Overlay -->
       <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10">
         <button 
-          @click.stop="emit('addToCart', product)"
-          class="bg-[#BDFF00] text-black px-6 py-3 font-semibold tracking-widest text-xs flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform hover:bg-[#a5e000]"
+          @click.stop="addToCart(product)"
+          :class="[
+            'px-6 py-3 font-semibold tracking-widest text-xs flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-colors transition-transform',
+            added ? 'bg-white text-black hover:bg-white' : 'bg-[#BDFF00] text-black hover:bg-[#a5e000]',
+          ]"
         >
           <!-- Using inline SVG for the shopping bag icon since external icon fonts might not be loaded yet -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -39,7 +50,7 @@ const emit = defineEmits<{
             <path d="M3 6h18"/>
             <path d="M16 10a4 4 0 0 1-8 0"/>
           </svg>
-          ADD TO BAG
+          {{ added ? 'ADDED' : 'ADD TO BAG' }}
         </button>
       </div>
     </div>
