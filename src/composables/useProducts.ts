@@ -17,7 +17,10 @@ export function useProducts() {
 
       if (normalizedQuery) {
         endpoint = `https://dummyjson.com/products/search?q=${encodeURIComponent(normalizedQuery)}&limit=${limit}&skip=${skip}`
+      } else if (normalizedCategory) {
+        endpoint = `https://dummyjson.com/products/category/${encodeURIComponent(normalizedCategory)}?limit=${limit}&skip=${skip}`
       }
+
       const res = await fetch(endpoint)
       const data = (await res.json()) as ProductResponse
       // Map dummyjson fields into our Product shape where possible
@@ -46,8 +49,8 @@ export function useProducts() {
         thumbnail: (p as any).thumbnail || ((p as any).images && (p as any).images[0]) || '',
       }))
       products.value = append ? [...products.value, ...mapped] : mapped
-      total.value = data.total ?? 0
-      return data.total
+      total.value = (data as any).total ?? mapped.length
+      return (data as any).total ?? mapped.length
     } catch (err: any) {
       error.value = err?.message || String(err)
       return 0

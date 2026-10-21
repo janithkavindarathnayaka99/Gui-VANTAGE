@@ -6,12 +6,11 @@ import { useProducts } from '../composables/useProducts'
 import { useAppState } from '../composables/useAppState'
 
 const route = useRoute()
-const { products, loading, error, total, fetchProducts } = useProducts()
+const { products, loading, error, fetchProducts } = useProducts()
 const { addToCart, loadCart } = useAppState()
 
 const skip = ref(0)
 const LIMIT = 100
-const loadingMore = ref(false)
 const searchQuery = computed(() => {
   const q = route.query.q
   return typeof q === 'string' ? q.trim() : ''
@@ -38,7 +37,7 @@ const filteredProducts = computed(() => {
   })
 })
 
-const hasMore = computed(() => false)
+// Pagination not used for filtered/category view; keep for future use
 
 const loadProducts = async () => {
   skip.value = 0
@@ -92,21 +91,8 @@ watch([searchQuery, selectedCategory], async () => {
           />
         </div>
 
-        <div v-if="hasMore" class="mt-16 flex justify-center">
-          <button
-            @click="loadMore"
-            class="border border-white/20 text-white px-16 py-4 font-label-caps tracking-widest hover:border-[#BDFF00] hover:text-[#BDFF00] transition-all duration-300 mt-16 mx-auto block"
-          >
-            <span v-if="loadingMore" class="flex items-center gap-3">
-              <span class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
-              LOADING...
-            </span>
-            <span v-else>LOAD MORE</span>
-          </button>
-        </div>
-
-        <div v-if="!hasMore && products.length > 0" class="text-center mt-16 text-white/20 font-label-caps tracking-widest text-sm">
-          — END OF CATALOGUE —
+        <div v-if="products.length === 0 && !loading" class="text-center mt-16 text-white/20 font-label-caps tracking-widest text-sm">
+          — NO PRODUCTS FOUND —
         </div>
       </div>
     </div>
